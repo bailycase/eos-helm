@@ -29,7 +29,7 @@ spec:
           command:
             - bash
             - -ec
-            - nodeos --snapshot=/data/snapshot.bin {{ include "eosnode.nodeargs" . }} {{ include "eosnode.morenodeargs" . }} {{- if .Values.replay }} --hard-replay {{- end }}
+            - nodeos --genesis-json=/data/genesis.json {{ include "eosnode.nodeargs" . }} {{ include "eosnode.morenodeargs" . }} {{- if .Values.replay }} --hard-replay {{- end }}
           ports:
             - containerPort: 5557
               protocol: TCP
