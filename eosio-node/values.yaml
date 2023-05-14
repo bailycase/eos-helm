@@ -1,0 +1,80 @@
+enabled: true
+replicaCount: 1
+
+image:
+  repository: eosio/eosio
+  tag: 62b8c9964cdf9a3b6afc5ae7cd562468920ef700
+  pullPolicy: IfNotPresent
+
+service:
+  port: 8888
+  qport: 5556
+  pport: 9876
+  type: LoadBalancer
+  loadBalancerSourceRanges: "0.0.0.0/0"
+ 
+# The argument passed to nodeos 
+args:
+  # - --genesis-json=/eos.data/genesis.json
+  - --agent-name=AgentName
+  - --plugin=eosio::chain_plugin 
+  - --plugin=eosio::chain_api_plugin 
+  - --plugin=eosio::state_history_plugin
+  - --plugin=eosio::http_plugin
+  - --data-dir=/data 
+  - --state-history-dir=/data/state-history
+  - --http-server-address=0.0.0.0:8888 
+  - --chain-threads=8
+  - --chain-state-db-guard-size-mb=128
+  - --max-irreversible-block-age=-1
+  - --txn-reference-block-lag=0
+  - --connection-cleanup-period=30
+  # - --network-version-match=0
+  - --sync-fetch-span=2000
+  - --p2p-peer-address=p2p.eosflare.io:9876
+  - --p2p-peer-address=peer.main.alohaeos.com:9876
+  - --p2p-peer-address=p2p.eosargentina.io:9876
+  - --p2p-peer-address=p2p.genereos.io:9876
+  - --p2p-peer-address=eos.defibox.xyz:9876
+  - --p2p-peer-address=eos.edenia.cloud:9876
+  - --p2p-peer-address=p2p.eos.cryptolions.io:9876
+  - --p2p-peer-address=p2p.donates2eden.io:9876
+  - --p2p-peer-address=p2p.eos42.io:9876
+  - --p2p-peer-address=mainnet.eosamsterdam.net:9876
+  - --p2p-peer-address=mainnet.eosarabia.net:3571
+  - --p2p-peer-address=p2p2.eoseoul.io:30333
+  - --p2p-peer-address=p2p.eosflare.io:9876
+  - --p2p-peer-address=p2p.bitmars.one:8080
+  - --p2p-peer-address=p2p.eos.detroitledger.tech:1337
+  - --p2p-peer-address=peer.eosio.sg:9876
+  - --p2p-peer-address=eos.seed.eosnation.io:9876
+  - --p2p-peer-address=peer1.eosphere.io:9876
+  - --p2p-peer-address=p2p.eossweden.org:9876
+  - --p2p-peer-address=eos.p2p.eosusa.io:9882
+
+moreargs:
+  - --chain-state-db-size-mb=786432 
+  - --max-clients=150
+  - --http-validate-host=false 
+  - --force-all-checks
+  - --disable-replay-opts
+  - --max-transaction-time=30000
+  - --abi-serializer-max-time-ms=15000
+
+snapshot: false
+download: false
+clear: false
+replay: false
+
+persistence:
+  enabled: true
+  # storageClass: "-"
+  size: 1000Gi
+  
+resources: 
+  limits:
+    cpu: "3"
+    memory: 8Gi
+  requests:
+    cpu: "3"
+    memory: 8Gi
